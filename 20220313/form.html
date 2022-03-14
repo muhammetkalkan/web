@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Başlıksız Belge</title>
+<script>
+var resimler=new Array("resimler/ilkbahar.jpg","resimler/yaz.jpg","resimler/sonbahar.jpg","resimler/kis.jpg");
+var yazdirilan=new Array();
+var zamansimdi=new Date();
+var saat=zamansimdi.getHours();
+var dakika=zamansimdi.getMinutes();
+var saniye=zamansimdi.getSeconds();
+
+	 
+   function temizle(){
+      for (i=0;i<yazdirilan.length;i++)
+	      delete yazdirilan[i];
+   }
+   function toplama()
+   {s1=parseInt(document.getElementById("s1").value);
+    s2=parseInt(document.getElementById("s2").value);
+    t=s1+s2;
+	document.getElementById("sonuc").value=t;
+	return false; 
+	   }
+	   
+	function cikar()
+	{s1=document.form1.s1.value;
+	 s2=document.form1.s2.value;
+	 t=s1-s2;
+	 document.form1.sonuc.value=t;
+	 return false;
+	}
+	function carp(){
+	  document.getElementById("sonuc").value=document.getElementById("s1").value*document.getElementById("s2").value;
+	  return false;
+	}
+	function mevsimbul(){
+	  ay=parseInt(document.getElementById("s1").value);
+	  switch(ay)
+	  {case 12:
+	   case 1:
+	   case 2:document.getElementById("resim").src="resimler/kis.jpg";break;
+	   case 3:
+	   case 4:
+	   case 5:document.getElementById("resim").src="resimler/ilkbahar.jpg";break;
+	   case 6:
+	   case 7:
+	   case 8:document.getElementById("resim").src="resimler/yaz.jpg";break;
+	   case 9:
+	   case 10:
+	   case 11:document.getElementById("resim").src="resimler/sonbahar.jpg";break;
+	  }
+	  return false;
+	}
+	function yaz(){
+	  yazdirilan.push(document.getElementById("s1").value);
+	  adet=document.getElementById("s2").value;
+	  document.getElementById("metin").style.fontFamily=document.getElementById("fontismi").value;
+	  document.getElementById("metin").style.color=document.getElementById("yrengi").value;
+	  document.getElementById("metin").style.backgroundColor=document.getElementById("arengi").value;
+	  if (document.getElementById("kalin").checked) document.getElementById("metin").style.fontWeight="bold"; else document.getElementById("metin").style.fontWeight="normal";
+	  if (document.getElementById("italik").checked) document.getElementById("metin").style.fontStyle="italic"; else document.getElementById("metin").style.fontStyle="normal";
+	  if (document.getElementById("acizili").checked) document.getElementById("metin").style.textDecoration="underline"; else document.getElementById("metin").style.textDecoration="none";
+	  document.getElementById("metin").innerHTML="";
+	  for (i=1;i<=adet;i++)
+	      document.getElementById("metin").innerHTML+=document.getElementById("s1").value+"<br>";
+	  return false;
+	}
+
+function listele()
+	{document.getElementById("metin").innerHTML="";
+	for (i=0;i<yazdirilan.length;i++) 
+	   {document.getElementById("metin").innerHTML+=yazdirilan[i]+"<br>";
+	   }
+	 return false;
+	}
+function calismazamani()
+{var czaman=new Date();
+ var csaniye=czaman.getSeconds()-saniye;
+ var cdakika=czaman.getMinutes()-dakika;
+ var csaat=czaman.getHours()-saat;
+ if (csaat<0) csaat+=60;
+ if (csaniye<0) csaniye+=60;
+ if(cdakika<0) cdakika+=60;
+ alert(csaat+" saat, "+cdakika+" dakika, "+csaniye+" saniyedir bizimlesin");
+}
+
+function zamanyaz(){
+ var z=new Date();
+  document.getElementById("zaman").innerHTML=z.toLocaleTimeString();
+}
+function kacanbuton(){
+    var btn=document.getElementById("hayir")
+	btn.style.left=Math.random()*(window.screen.width-100)+"px";
+	btn.style.top=Math.random()*(window.screen.height-100)+"px";
+}
+function resimdegistir(){
+   document.getElementById("resim").src=resimler[document.getElementById("resimkod").innerHTML];
+  var kod=document.getElementById("resimkod");
+  if (parseInt(kod.innerHTML)<3) kod.innerHTML=parseInt(kod.innerHTML)+1; else kod.innerHTML="0";
+  
+}
+function cikis(){
+ var karar=confirm("Çıkmak istediğinize emin misiniz?");
+ if (karar) window.close(); else alert("Bizimle kaldığınız için teşekkürler....");
+}
+function tarihgoster(){
+   var tarih=new Date();
+   document.getElementById("zaman").innerHTML=tarih.toLocaleDateString();
+}
+</script>
+</head>
+
+<body>
+<form action="" method="post" name="form1">
+  <table width="617" height="276" border="1" align="center">
+    <tr>
+      <td width="172">1. sayıyı giriniz</td>
+      <td width="157"><label for="s1"></label>
+      <input type="text" name="s1" id="s1" /></td>
+      <td width="225" rowspan="5"><img width="240" height="170" id="resim" ondblclick="resimdegistir()" /></td>
+    </tr>
+    <tr>
+      <td>2. sayıyı giriniz</td>
+      <td><label for="s2"></label>
+      <input type="text" name="s2" id="s2" /></td>
+    </tr>
+    <tr>
+      <td>Font İsmi</td>
+      <td><label for="fontismi"></label>
+        <select name="fontismi" id="fontismi">
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Comic Sans Ms">Comic Sans Ms</option>
+          <option value="Arial">Arial</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td>Arkaplan</td>
+      <td><input type="color" id="arengi" name="arengi" /></td>
+    </tr>
+    <tr>
+      <td>Yazı Rengi</td>
+      <td><input type="color" id="yrengi" name="yrengi" /></td>
+    </tr>
+    <tr>
+      <td colspan="3"><input type="checkbox" name="kalin" id="kalin" />
+      <label for="kalin">Kalın 
+        <input type="checkbox" name="italik" id="italik" />
+      İtalik 
+      <input type="checkbox" name="acizili" id="acizili" />
+      Altı Çizili</label></td>
+    </tr>
+    <tr>
+      <td colspan="3"><input type="submit" name="button" id="button" value="Topla" onClick="return toplama()" />
+      <input type="submit" name="button2" id="button2" value="Çıkar" onclick="return cikar()" />
+      <input type="submit" name="button3" id="button3" value="Çarp" onclick="return carp()" /> <input type="submit" name="button6" id="button6" value="Böl" onclick=/>
+      <input type="submit" name="button4" id="button4" value="Yaz" onclick="return yaz()"/> <input type="submit" name="button5" id="button5" value="Mevsim Bul" onclick="return mevsimbul()" />
+      <input type="submit" name="button7" id="button7" value="Yazdırılanları Listele" onclick="return listele()" /> <input type="submit" name="button8" id="button8" value="Listeyi Temizle" onclick="return temizle()" />
+      <input type="submit" name="button9" id="button9" value="Çıkış" onclick="cikis()"/></td>
+    </tr>
+    <tr>
+      <td>Sonuç</td>
+      <td colspan="2"><label for="sonuc"></label>
+      <input type="text" name="sonuc" id="sonuc" /></td>
+    </tr>
+    <tr>
+      <td colspan="3"><h3 id="metin"></h3></td>
+    </tr>
+  </table>
+</form>
+<h3 id="zaman" style="position:absolute; right:50px; top:3px;border:1px solid red; padding:5px;" onmousemove="tarihgoster()" onclick="calismazamani()">
+</h3>
+<span style="position: absolute; left: 4px; top: 10px;">Güzel bir uygulama olmuş. Değil mi?</span>
+<button id="evet" style="position: absolute; background-color: #00F; color: white; left: 49px; top: 37px;" onclick="alert('Biz de öyle düşünmüştük');" >Evet
+</button> 
+<button id="hayir" style="position: absolute; background-color: #00F; color: white; left: 114px; top: 38px;" onmouseover="kacanbuton()">Hayır</button>
+<span id="resimkod" style="color:white">0</span>
+<script>
+  window.setInterval("zamanyaz()",1000);
+  var btn=document.getElementById("button6");
+  btn.onclick=function(){
+     document.getElementById("sonuc").value=document.getElementById("s1").value/document.getElementById("s2").value;
+	 return false;
+  }
+  var evet=document.getElementById("hayir");
+ /*
+  window.addEventListener("keydown",function(e){
+       if(e.key=="ArrowLeft") evet.style.left=(parseInt(evet.style.left)-10)+"px";
+  });
+  */
+  window.onkeydown=function(e){
+     if(e.key=="ArrowLeft") evet.style.left=(parseInt(evet.style.left)-10)+"px";
+	 if(e.key=="ArrowRight") evet.style.left=(parseInt(evet.style.left)+10)+"px";
+	 if(e.key=="ArrowUp") evet.style.top=(parseInt(evet.style.top)-10)+"px";
+	 if(e.key=="ArrowDown") evet.style.top=(parseInt(evet.style.top)+10)+"px";
+  }
+
+</script>
+</body>
+</html>
